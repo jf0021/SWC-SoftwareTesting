@@ -42,7 +42,7 @@
 </section>
 <h2 id="assertions">Assertions</h2>
 <p>An assertion is simply a statement that something must be true at a certain point in a program. When Python sees one, it evaluates the assertion’s condition. If it is true, Python does nothing, but if it is false, Python halts the program immediately and prints the error message if one is provided. For example, consider if we have a square root function:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">from</span> math imprt sqrt
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">from</span> math <span class="ch">import</span> sqrt
 
 <span class="kw">def</span> mysquareroot (x)
     <span class="co">&#39;&#39;&#39; Calculate the square root of a positive number&#39;&#39;&#39;</span>
@@ -53,7 +53,7 @@
     <span class="kw">else</span>:
         <span class="dt">print</span> <span class="st">&quot;Supplied number (&quot;</span>,x<span class="st">&quot;) is negative&quot;</span></code></pre>
 <p>The assert statement checks what we expect; namely that the square root squared should equal our original number. In the unlikely event that the sqrt function does not return the correct value, the assert will generate an AssertionError exception. We can further improve this program by providing some more information from the assert statement detailing the reason for any error:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">from</span> math imprt sqrt
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">from</span> math <span class="ch">import</span> sqrt
 
 <span class="kw">def</span> mysquareroot (x)
     <span class="co">&#39;&#39;&#39; Calculate the square root of a positive number&#39;&#39;&#39;</span>

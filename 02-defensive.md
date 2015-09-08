@@ -19,7 +19,7 @@ the program immediately and prints the error message if one is provided.
 For example, consider if we have a square root function:
 
 ~~~ {.python}
-from math imprt sqrt
+from math import sqrt
 
 def mysquareroot (x)
     ''' Calculate the square root of a positive number'''
@@ -39,7 +39,7 @@ exception. We can further improve this program by providing some more
 information from the assert statement detailing the reason for any error:
 
 ~~~ {.python}
-from math imprt sqrt
+from math import sqrt
 
 def mysquareroot (x)
     ''' Calculate the square root of a positive number'''

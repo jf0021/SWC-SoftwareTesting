@@ -41,7 +41,7 @@
 </div>
 </section>
 <h2 id="exceptions">Exceptions</h2>
-<p>Ideally we would prefer our programs to be free from errors and unexpected behaviour. However, we know that unforseen or unfortunate circumstances can occur. What we need to ensure is that we can control these situations and work around them if possible or fail gracefully if they pose an insurmountable problem.</p>
+<p>Ideally we would prefer our programs to be free from errors and unexpected behaviour. However, we know that unforeseen or unfortunate circumstances can occur. What we need to ensure is that we can control these situations and work around them if possible or fail gracefully if they pose an insurmountable problem.</p>
 <p>One method for controlling these unwanted situations is by the use of <a href="reference.html#exceptionhandling">exception handling</a>. An error detected during execution of a Python program is known as an exception and, unless successfully handled, will cause a fatal error to the program. Consider the following:</p>
 <pre class="sourceCode python"><code class="sourceCode python">reader = <span class="dt">open</span>(<span class="st">&#39;nonexistant.file&#39;</span>, <span class="st">&#39;r&#39;</span>)</code></pre>
 <pre class="error"><code>---------------------------------------------------------------------------
@@ -63,7 +63,7 @@ IOError: [Errno 2] No such file or directory: &#39;nonexistant.file&#39;</code><
     <span class="dt">print</span> <span class="st">&quot;File I/O error&quot;</span>
 
 <span class="dt">print</span> <span class="st">&quot;Still running&quot;</span></code></pre>
-<p>The except keyword declares what errors we are going to handle. In above example, we are only providing handling for the IOError exception which is generated when a system I/O error occurs. Multiple errors may be trapped by providing several handlers:</p>
+<p>The except keyword declares what errors we are going to handle. In the above example, we are only providing handling for the IOError exception which is generated when a system I/O error occurs. Several different exceptions may be trapped by providing multiple handlers:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">try</span>:
     reader = <span class="dt">open</span>(<span class="st">&#39;nonexistant.file&#39;</span>, <span class="st">&#39;r&#39;</span>)
     line = reader.readline()
@@ -75,7 +75,7 @@ IOError: [Errno 2] No such file or directory: &#39;nonexistant.file&#39;</code><
     <span class="dt">print</span> <span class="st">&quot;Unrecognised error&quot;</span>
 
 <span class="dt">print</span> <span class="st">&quot;Still running&quot;</span></code></pre>
-<p>The except: entry (without the name of an exception) provides a means of trapping any other exceptions that have not been explicitly named in an except statement. When an exception is raised, control passes to the appropriate exception handler. Any un-executed statements in the try: block are left unexecuted.</p>
+<p>The except: entry (without the name of an exception) provides a means of trapping any other exceptions that have not been explicitly named in an except statement. When an exception is raised, control passes to the appropriate exception handler. Any unexecuted statements in the try: block are left unexecuted.</p>
 <p>When trapping exceptions, you should only handle those exceptions that the program can successfully deal with. If the program relies on being able to open a file, there is little point in the program continuing if the file open fails (unless the program allows the user to specify an alternative file).</p>
 <p>Besides trapping exceptions, we can also raise them. This allows us to gracefully terminate the program on an error condition, or return control back to a higher level of the program if that is trapping the exception we are creating:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="ch">from</span> math imprt sqrt
@@ -96,10 +96,10 @@ ValueError                                Traceback (most recent call last)
 &lt;ipython-input-61-a40d68a98708&gt; in printsquareroot(x)
       8         print &quot;Square root of&quot;,x,&quot;is&quot;,r
       9     else:
----&gt; 10         raise ValueError,&quot;Cannot calculate the square root of a negative number&quot;
+---&gt; 10         raise ValueError,&quot;Cannot print the square root of a negative number&quot;
 
 ValueError: Cannot calculate the square root of a negative number</code></pre>
-<p>The “Cannot calculate…” string argument to the raise command is optional and allows us to provice more information for debugging purposes or to inform the user. In actual fact, this informational string is the only real enhancement our example program has provided over the default behaviour as, without the if test, calling sqrt with a negative number will generate a ValueError exception itself.</p>
+<p>The “Cannot print…” string argument to the raise command is optional and allows us to provide more information for debugging purposes or to inform the user. In actual fact, this informational string is the only real enhancement our example program has provided over the default behaviour as, without the if test, calling sqrt with a negative number will generate a ValueError exception itself.</p>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
 <h2><span class="glyphicon glyphicon-pencil"></span>Testing exceptions</h2>

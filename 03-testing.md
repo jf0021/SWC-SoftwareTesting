@@ -24,15 +24,15 @@ Unless you write flawless, bug-free, perfectly accurate, fully precise, and
 predictable code every time, you must test your code in order to trust it enough
 to answer in the affirmative to at least a few of the following questions:
 
-Does your code work?
-Always?
-Does it do what you think it does?
-Does it continue to work after changes are made?
-Does it continue to work after system configurations or libraries are upgraded?
-Does it respond properly for a full range of input parameters?
-What about edge or corner cases?
-What is the limit on that input parameter?
-How will it affect your publications?
+- Does your code work?
+- Always?
+- Does it do what you think it does?
+- Does it continue to work after changes are made?
+- Does it continue to work after system configurations or libraries are upgraded?
+- Does it respond properly for a full range of input parameters?
+- What about edge or corner cases?
+- What is the limit on that input parameter?
+- How will it affect your publications?
 
 ## When should we test?
 
@@ -54,8 +54,8 @@ codes, etc.
 
 Another important feature of testing is that it helps you remember what all the
 parts of your code do. If you are working on a large project over three years
-and you end up with 200 classes, it may be hard to remember what the widget
-class does in detail. If you have a test that checks all of the widget's
+and you end up with 200 distinct parts, it may be hard to remember what one
+particular component does in detail. If you have a test that checks all of the
 functionality, you can look at the test to remember what it's supposed to do.
 
 ## Who should test?
@@ -100,14 +100,15 @@ codes, analytical solutions, etc.
 **Regression Tests:** A regression test ensures that new code does
 change anything. If you change the default answer, for example, or add a
 new question, you'll need to make sure that missing entries are still
-found and fixed.
+found and fixed. Fix a bug: Add a regression test. Better still, turn the
+bug into a function test; then fix it.
 
 **Integration Tests:** Integration tests query the ability of the code
 to integrate well with the system configuration and third party
-libraries and modules. This type of test is essential for codes that
-depend on libraries which might be updated independently of your code or
-when your code might be used by a number of users who may have various
-versions of libraries.
+libraries and modules. This type of test is essential for code that
+depends on libraries which might be updated independently or when your
+code might be used by a number of users who may have various versions of
+libraries.
 
 **Test Suites:** Putting a series of unit tests into a collection of
 modules creates, a test suite. Typically the suite as a whole is
@@ -124,7 +125,7 @@ a new fully defined object, a system state, an exception, etc. When we
 run the fun() function, we expect to generate some fun. If we don't
 generate any fun, the fun() function should fail its test.
 Alternatively, if it does create some fun, the fun() function should
-pass this test. The the expected result should known *a priori*. For
+pass this test. The expected result should known *a priori*. For
 numerical functions, this is result is ideally analytically determined
 even if the function being tested isn't.
 
@@ -135,11 +136,6 @@ conditional is false, the test fails.
 objects that are necessary to run one or many tests. These objects are
 called fixtures as they are not really part of the test themselves but
 rather involve getting the computer into the appropriate state.
-
-For example, since fun varies a lot between people, the fun() function
-is a method of the Person class. In order to check the fun function,
-then, we need to create an appropriate Person object on which to run
-fun().
 
 **Setup and teardown:** Creating fixtures is often done in a call to a
 setup function. Deleting them and other cleanup is done in a teardown

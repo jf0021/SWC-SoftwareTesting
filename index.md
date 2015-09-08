@@ -23,28 +23,14 @@ than the time that measuring takes.
 > ## Prerequisites {.prereq}
 >
 > Learners need to possess a rudimentary understanding of Python
-> and familiarity with thei command-line environment.`
-
-> ## Getting ready {.getready}
->
-> JFi:Update
-> You need to download some files to follow this lesson:
->
-> 1. Make a new folder in your Desktop called `python-novice-inflammation`.
-> 2. Download [python-novice-inflammation-data.zip](./python-novice-inflammation-data.zip) and move the file to this folder.
-> 3. If it's not unzipped yet, double-click on it to unzip it. You should end up with a new folder called `data`.
-> 4. You can access this folder from the Unix shell with:
->
-> ~~~ {.input}
-> $ cd && cd Desktop/python-novice-inflammation/data
-> ~~~
+> and familiarity with their command-line environment.`
 
 ## Topics
 
-1.  [                            ](01-    .html)
-2.  [                            ](02-    .html)
-3.  [                            ](03-nose.html)
-4.  [Defensive Programming](04-defensive.html)
+1.  [Exceptions](01-exceptions.html)
+2.  [Defensive Programming](02-defensive.html)
+3.  [Testing](03-testing.html)
+4.  [Nose A Python test framework](04-nose.html)
 5.  [Test Driven Development](05-tdd.html)
 
 

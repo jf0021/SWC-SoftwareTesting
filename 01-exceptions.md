@@ -13,7 +13,7 @@ minutes: 30
 ## Exceptions
 
 Ideally we would prefer our programs to be free from errors and unexpected
-behaviour. However, we know that unforseen or unfortunate circumstances can
+behaviour. However, we know that unforeseen or unfortunate circumstances can
 occur. What we need to ensure is that we can control these situations and
 work around them if possible or fail gracefully if they pose an insurmountable
 problem.
@@ -62,10 +62,10 @@ except IOError:
 print "Still running"
 ~~~
 
-The except keyword declares what errors we are going to handle. In above
+The except keyword declares what errors we are going to handle. In the above
 example, we are only providing handling for the IOError exception which is
-generated when a system I/O error occurs. Multiple errors may be trapped by
-providing several handlers:
+generated when a system I/O error occurs. Several different exceptions may be
+trapped by providing multiple handlers:
 
 ~~~ {.python}
 try:
@@ -84,7 +84,7 @@ print "Still running"
 The except: entry (without the name of an exception) provides a means of
 trapping any other exceptions that have not been explicitly named in an
 except statement. When an exception is raised, control passes to the 
-appropriate exception handler. Any un-executed statements in the try:
+appropriate exception handler. Any unexecuted statements in the try:
 block are left unexecuted. 
 
 When trapping exceptions, you should only handle those exceptions that
@@ -120,13 +120,13 @@ ValueError                                Traceback (most recent call last)
 <ipython-input-61-a40d68a98708> in printsquareroot(x)
       8         print "Square root of",x,"is",r
       9     else:
----> 10         raise ValueError,"Cannot calculate the square root of a negative number"
+---> 10         raise ValueError,"Cannot print the square root of a negative number"
 
 ValueError: Cannot calculate the square root of a negative number
 ~~~
 
-The "Cannot calculate..." string argument to the raise command is optional and
-allows us to provice more information for debugging purposes or to inform the
+The "Cannot print..." string argument to the raise command is optional and
+allows us to provide more information for debugging purposes or to inform the
 user. In actual fact, this informational string is the only real enhancement
 our example program has provided over the default behaviour as, without the
 if test, calling sqrt with a negative number will generate a ValueError

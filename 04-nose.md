@@ -12,7 +12,7 @@ minutes: 30
 
 The testing framework we'll discuss today is called nose. However, there
 are several other testing frameworks available in most languages. For Python,
-other alternative testing framworks include pytest, unittest, doctest.
+other alternative testing frameworks include pytest, unittest, doctest.
 
 ## Where do nose tests live?
 
@@ -28,15 +28,15 @@ expression.)
 
 To write a nose test, we make assertions.
 
-```python
+~~~ {.python}
 assert should_be_true()
 assert not should_not_be_true()
-```
+~~~
 
 Additionally, nose itself defines number of assert functions which can
 be used to test more specific aspects of the code base.
 
-~~~{python}
+~~~ {.python}
 from nose.tools import *
 
 assert_equal(a, b)
@@ -50,7 +50,7 @@ assert_is_instance(a, b)
 
 Moreover, numpy offers similar testing functions for arrays:
 
-~~~{python}
+~~~ {.python}
 from numpy.testing import *
 
 assert_array_equal(a, b)
@@ -74,48 +74,4 @@ assert_array_almost_equal(a, b)
 > 
 >    nosetests -v test_mean.py
 
-
-
-> ## Pre- and post-conditions {.challenge}
->
-> Suppose you are writing a function called `average` that calculates the average of the numbers in a list.
-> What pre-conditions and post-conditions would you write for it?
-> Compare your answer to your neighbor's:
-> can you think of a function that will pass your tests but not hers or vice versa?
-
-> ## Testing assertions {.challenge}
->
-> Given a sequence of values, the function `running` returns
-> a list containing the running totals at each index.
->
-> ~~~{.python}
-> running([1, 2, 3, 4])
-> ~~~
->
-> ~~~{.output}
-> [1, 3, 6, 10]
-> ~~~
->
-> ~~~{.python}
-> running('abc')
-> ~~~
->
-> ~~~{.output}
-> ['a', 'ab', 'abc']
-> ~~~
->
-> Explain in words what the assertions in this function check,
-> and for each one,
-> give an example of input that will make that assertion fail.
->
-> ~~~ {.python}
-> def running(values):
->     assert len(values) > 0
->     result = [values[0]]
->     for v in values[1:]:
->         assert result[-1] >= 0
->         result.append(result[-1] + v)
->         assert result[-1] >= result[0]
->     return result
-> ~~~
 
