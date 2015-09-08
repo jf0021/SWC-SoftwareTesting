@@ -40,7 +40,9 @@
 </div>
 </section>
 <h2 id="test-driven-development">Test-Driven Development</h2>
-<p>An assertion checks that something is true at a particular point in the program. The next step is to check the overall behavior of a piece of code, i.e., to make sure that it produces the right output when it’s given a particular input. For example, suppose we need to find where two or more time series overlap. The range of each time series is represented as a pair of numbers, which are the time the interval started and ended. The output is the largest range that they all include:</p>
+<p>Test driven development (TDD) is a philosophy whereby the developer creates code by writing the tests first. That is to say you write the tests before writing the associated code!</p>
+<p>This is an iterative process whereby you write a test then write the minimum amount code to make the test pass. If a new feature is needed, another test is written and the code is expanded to meet this new use case. This continues until the code does what is needed.</p>
+<p>For example, suppose we need to find where two or more time series overlap. The range of each time series is represented as a pair of numbers, which are the time the interval started and ended. The output is the largest range that they all include:</p>
 <p><img src="fig/python-overlapping-ranges.svg" alt="Overlapping Ranges" /><br /> Most novice programmers would solve this problem like this:</p>
 <ol style="list-style-type: decimal">
 <li>Write a function <code>range_overlap</code>.</li>
@@ -125,6 +127,14 @@ AssertionError                            Traceback (most recent call last)
 
 AssertionError:</code></pre>
 <p>The first of the tests that was supposed to produce <code>None</code> fails, so we know there’s something wrong with our function. What we <em>don’t</em> know, though, is whether the other four tests passed or failed, because Python halted the program as soon as it spotted the first error. Still, some information is better than none, and if we trace the behavior of the function with that input, we realize that we’re initializing <code>lowest</code> and <code>highest</code> to 0.0 and 1.0 respectively, regardless of the input values. This violates another important rule of programming: <em>always initialize from data</em>.</p>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pencil"></span>Pre- and post-conditions</h2>
+</div>
+<div class="panel-body">
+<p>Suppose you are writing a function called <code>average</code> that calculates the average of the numbers in a list. What pre-conditions and post-conditions would you write for it? Compare your answer to your neighbor’s: can you think of a function that will pass your tests but not hers or vice versa?</p>
+</div>
+</section>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
 <h2><span class="glyphicon glyphicon-pencil"></span>Fixing and testing</h2>

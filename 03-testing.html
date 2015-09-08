@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Software Carpentry: Software Testing</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Software Carpentry Blog" href="http://software-carpentry.org/feed.xml"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="http://software-carpentry.org" title="Software Carpentry">
+          <img alt="Software Carpentry banner" src="img/software-carpentry-banner.png" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <a href="index.html"><h1 class="title">Software Testing</h1></a>
+          <h2 class="subtitle">What is Testing?</h2>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
+<ul>
+<li>Define what we mean by testing</li>
+<li>Learn why we test</li>
+<li>Learn when we should test</li>
+<li>Learn who should test</li>
+<li>Learn the types of test</li>
+<li>Learn when we should test</li>
+</ul>
+</div>
+</section>
+<p>Software testing is a process by which one or more expected behaviors and results from a piece of software are exercised and confirmed. Well chosen tests will confirm expected code behavior for the extreme boundaries of the input domains, output ranges, parametric combinations, and other behavioral edge cases.</p>
+<h2 id="why-test-software">Why test software</h2>
+<p>Unless you write flawless, bug-free, perfectly accurate, fully precise, and predictable code every time, you must test your code in order to trust it enough to answer in the affirmative to at least a few of the following questions:</p>
+<p>Does your code work? Always? Does it do what you think it does? Does it continue to work after changes are made? Does it continue to work after system configurations or libraries are upgraded? Does it respond properly for a full range of input parameters? What about edge or corner cases? What is the limit on that input parameter? How will it affect your publications?</p>
+<h2 id="when-should-we-test">When should we test?</h2>
+<p>The three right answers are:</p>
+<ul>
+<li><strong>ALWAYS!</strong></li>
+<li><strong>EARLY!</strong></li>
+<li><strong>OFTEN!</strong></li>
+</ul>
+<p>The longer answer is that testing either before or after your software is written will improve your code, but testing after your program is used for something important is too late.</p>
+<p>If we have a robust set of tests, we can run them before adding something new and after adding something new. If the tests give the same results (as appropriate), we can have some assurance that we didn’t wreak anything. The same idea applies to making changes in your system configuration, updating support codes, etc.</p>
+<p>Another important feature of testing is that it helps you remember what all the parts of your code do. If you are working on a large project over three years and you end up with 200 classes, it may be hard to remember what the widget class does in detail. If you have a test that checks all of the widget’s functionality, you can look at the test to remember what it’s supposed to do.</p>
+<h2 id="who-should-test">Who should test?</h2>
+<p>In a collaborative coding environment, where many developers contribute to the same code base, developers should be responsible individually for testing the functions they create and collectively for testing the code as a whole.</p>
+<p>Professionals often test their code, and take pride in test coverage, the percent of their functions that they feel confident are comprehensively tested.</p>
+<h2 id="how-are-tests-written">How are tests written?</h2>
+<p>The type of tests that are written is determined by the testing framework you adopt. Don’t worry, there are a lot of choices.</p>
+<h2 id="types-of-tests">Types of Tests</h2>
+<p><strong>Exceptions:</strong> Exceptions can be thought of as type of runtime test. They alert the user to exceptional behavior in the code. Often, exceptions are related to functions that depend on input that is unknown at compile time. Checks that occur within the code to handle exceptional behavior that results from this type of input are called Exceptions.</p>
+<p><strong>Unit Tests:</strong> Unit tests are a type of test which test the fundamental units of a program’s functionality. Often, this is on the class or function level of detail. However what defines a <em>code unit</em> is not formally defined.</p>
+<p>To test functions and classes, the interfaces (API) - rather than the implementation - should be tested. Treating the implementation as a black box, we can probe the expected behavior with boundary cases for the inputs.</p>
+<p><strong>System Tests:</strong> System level tests are intended to test the code as a whole. As opposed to unit tests, system tests ask for the behavior as a whole. This sort of testing involves comparison with other validated codes, analytical solutions, etc.</p>
+<p><strong>Regression Tests:</strong> A regression test ensures that new code does change anything. If you change the default answer, for example, or add a new question, you’ll need to make sure that missing entries are still found and fixed.</p>
+<p><strong>Integration Tests:</strong> Integration tests query the ability of the code to integrate well with the system configuration and third party libraries and modules. This type of test is essential for codes that depend on libraries which might be updated independently of your code or when your code might be used by a number of users who may have various versions of libraries.</p>
+<p><strong>Test Suites:</strong> Putting a series of unit tests into a collection of modules creates, a test suite. Typically the suite as a whole is executed (rather than each test individually) when verifying that the code base still functions after changes have been made.</p>
+<h1 id="elements-of-a-test">Elements of a Test</h1>
+<p><strong>Behavior:</strong> The behavior you want to test. For example, you might want to test the fun() function.</p>
+<p><strong>Expected Result:</strong> This might be a single number, a range of numbers, a new fully defined object, a system state, an exception, etc. When we run the fun() function, we expect to generate some fun. If we don’t generate any fun, the fun() function should fail its test. Alternatively, if it does create some fun, the fun() function should pass this test. The the expected result should known <em>a priori</em>. For numerical functions, this is result is ideally analytically determined even if the function being tested isn’t.</p>
+<p><strong>Assertions:</strong> Require that some conditional be true. If the conditional is false, the test fails.</p>
+<p><strong>Fixtures:</strong> Sometimes you have to do some legwork to create the objects that are necessary to run one or many tests. These objects are called fixtures as they are not really part of the test themselves but rather involve getting the computer into the appropriate state.</p>
+<p>For example, since fun varies a lot between people, the fun() function is a method of the Person class. In order to check the fun function, then, we need to create an appropriate Person object on which to run fun().</p>
+<p><strong>Setup and teardown:</strong> Creating fixtures is often done in a call to a setup function. Deleting them and other cleanup is done in a teardown function.</p>
+<p><strong>The Big Picture:</strong> Putting all this together, the testing algorithm is often:</p>
+<pre class="sourceCode python"><code class="sourceCode python">setup()
+test()
+teardown()</code></pre>
+<p>But, sometimes it’s the case that your tests change the fixtures. If so, it’s better for the setup() and teardown() functions to occur on either side of each test. In that case, the testing algorithm should be:</p>
+<pre class="sourceCode python"><code class="sourceCode python">setup()
+test1()
+teardown()
+
+setup()
+test2()
+teardown()
+
+setup()
+test3()
+teardown()</code></pre>
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="http://software-carpentry.org">Software Carpentry</a>
+        <a class="label swc-blue-bg" href="https://github.com/swcarpentry/lesson-template">Source</a>
+        <a class="label swc-blue-bg" href="mailto:admin@software-carpentry.org">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+  </body>
+</html>

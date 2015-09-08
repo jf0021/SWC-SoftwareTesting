@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Software Carpentry: Software Testing</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Software Carpentry Blog" href="http://software-carpentry.org/feed.xml"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="http://software-carpentry.org" title="Software Carpentry">
+          <img alt="Software Carpentry banner" src="img/software-carpentry-banner.png" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <a href="index.html"><h1 class="title">Software Testing</h1></a>
+          <h2 class="subtitle">Exceptions</h2>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
+<ul>
+<li>Learn what Exceptions are</li>
+<li>Learn how to create an exceptions for an error condition</li>
+<li>Learn how to process exceptions to allow recovery from an error</li>
+</ul>
+</div>
+</section>
+<h2 id="exceptions">Exceptions</h2>
+<p>Ideally we would prefer our programs to be free from errors and unexpected behaviour. However, we know that unforseen or unfortunate circumstances can occur. What we need to ensure is that we can control these situations and work around them if possible or fail gracefully if they pose an insurmountable problem.</p>
+<p>One method for controlling these unwanted situations is by the use of <a href="reference.html#exceptionhandling">exception handling</a>. An error detected during execution of a Python program is known as an exception and, unless successfully handled, will cause a fatal error to the program. Consider the following:</p>
+<pre class="sourceCode python"><code class="sourceCode python">reader = <span class="dt">open</span>(<span class="st">&#39;nonexistant.file&#39;</span>, <span class="st">&#39;r&#39;</span>)</code></pre>
+<pre class="error"><code>---------------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+IOError: [Errno 2] No such file or directory: &#39;nonexistant.file&#39;</code></pre>
+<p>As the file does not exist, this causes an exception which, as we have no exception handling, causes a fatal error which would stop any running program. What we need to do is add some exception handling:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">try</span>:
+    reader = <span class="dt">open</span>(<span class="st">&#39;nonexistant.file&#39;</span>, <span class="st">&#39;r&#39;</span>)
+<span class="kw">except</span> <span class="ot">IOError</span>:
+    <span class="dt">print</span> <span class="st">&quot;File does not exist&quot;</span>
+
+<span class="dt">print</span> <span class="st">&quot;Still running&quot;</span></code></pre>
+<p>An exception handler is introduced by the try: statement. This indicates that the following statement(s) have their own exception handling code. There may be any number of statements that benefit from the error handler and they are listed immediately after the try: and before the first except keyword.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">try</span>:
+    reader = <span class="dt">open</span>(<span class="st">&#39;nonexistant.file&#39;</span>, <span class="st">&#39;r&#39;</span>)
+    line = reader.readline()
+<span class="kw">except</span> <span class="ot">IOError</span>:
+    <span class="dt">print</span> <span class="st">&quot;File I/O error&quot;</span>
+
+<span class="dt">print</span> <span class="st">&quot;Still running&quot;</span></code></pre>
+<p>The except keyword declares what errors we are going to handle. In above example, we are only providing handling for the IOError exception which is generated when a system I/O error occurs. Multiple errors may be trapped by providing several handlers:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">try</span>:
+    reader = <span class="dt">open</span>(<span class="st">&#39;nonexistant.file&#39;</span>, <span class="st">&#39;r&#39;</span>)
+    line = reader.readline()
+<span class="kw">except</span> <span class="ot">IOError</span>:
+    <span class="dt">print</span> <span class="st">&quot;File does not exist&quot;</span>
+<span class="kw">except</span> <span class="ot">ValueError</span>:
+    <span class="dt">print</span> <span class="st">&quot;Inappropriate data&quot;</span>
+<span class="kw">except</span>:
+    <span class="dt">print</span> <span class="st">&quot;Unrecognised error&quot;</span>
+
+<span class="dt">print</span> <span class="st">&quot;Still running&quot;</span></code></pre>
+<p>The except: entry (without the name of an exception) provides a means of trapping any other exceptions that have not been explicitly named in an except statement. When an exception is raised, control passes to the appropriate exception handler. Any un-executed statements in the try: block are left unexecuted.</p>
+<p>When trapping exceptions, you should only handle those exceptions that the program can successfully deal with. If the program relies on being able to open a file, there is little point in the program continuing if the file open fails (unless the program allows the user to specify an alternative file).</p>
+<p>Besides trapping exceptions, we can also raise them. This allows us to gracefully terminate the program on an error condition, or return control back to a higher level of the program if that is trapping the exception we are creating:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">from</span> math imprt sqrt
+
+<span class="kw">def</span> printsquareroot (x)
+    <span class="co">&#39;&#39;&#39; Print the square root of a number&#39;&#39;&#39;</span>
+    <span class="kw">if</span> x &gt;= <span class="dv">0</span>:
+        r = sqrt (x)
+        <span class="kw">assert</span> r*r == x
+        <span class="dt">print</span> <span class="st">&quot;Square root of&quot;</span>,x,<span class="st">&quot;is&quot;</span>,r
+    <span class="kw">else</span>:
+        <span class="kw">raise</span> <span class="ot">ValueError</span>,<span class="st">&quot;Cannot calculate the square root of a negative number&quot;</span></code></pre>
+<pre class="error"><code>---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+&lt;ipython-input-63-4f4f2f2c0197&gt; in &lt;module&gt;()
+----&gt; 1 printsquareroot(-1)
+
+&lt;ipython-input-61-a40d68a98708&gt; in printsquareroot(x)
+      8         print &quot;Square root of&quot;,x,&quot;is&quot;,r
+      9     else:
+---&gt; 10         raise ValueError,&quot;Cannot calculate the square root of a negative number&quot;
+
+ValueError: Cannot calculate the square root of a negative number</code></pre>
+<p>The “Cannot calculate…” string argument to the raise command is optional and allows us to provice more information for debugging purposes or to inform the user. In actual fact, this informational string is the only real enhancement our example program has provided over the default behaviour as, without the if test, calling sqrt with a negative number will generate a ValueError exception itself.</p>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pencil"></span>Testing exceptions</h2>
+</div>
+<div class="panel-body">
+<p>Given a sequence of values, the function <code>running</code> returns a list containing the running totals at each index.</p>
+<pre class="sourceCode python"><code class="sourceCode python">running([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</code></pre>
+<pre class="output"><code>[1, 3, 6, 10]</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python">running(<span class="st">&#39;abc&#39;</span>)</code></pre>
+<pre class="output"><code>[&#39;a&#39;, &#39;ab&#39;, &#39;abc&#39;]</code></pre>
+<p>Explain in words what the assertions in this function check, and for each one, give an example of input that will make that assertion fail.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> running(values):
+    <span class="kw">assert</span> <span class="dt">len</span>(values) &gt; <span class="dv">0</span>
+    result = [values[<span class="dv">0</span>]]
+    <span class="kw">for</span> v in values[<span class="dv">1</span>:]:
+        <span class="kw">assert</span> result[-<span class="dv">1</span>] &gt;= <span class="dv">0</span>
+        result.append(result[-<span class="dv">1</span>] + v)
+        <span class="kw">assert</span> result[-<span class="dv">1</span>] &gt;= result[<span class="dv">0</span>]
+    <span class="kw">return</span> result</code></pre>
+</div>
+</section>
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="http://software-carpentry.org">Software Carpentry</a>
+        <a class="label swc-blue-bg" href="https://github.com/swcarpentry/lesson-template">Source</a>
+        <a class="label swc-blue-bg" href="mailto:admin@software-carpentry.org">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+  </body>
+</html>

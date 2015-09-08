@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Software Carpentry: Software Testing</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Software Carpentry Blog" href="http://software-carpentry.org/feed.xml"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="http://software-carpentry.org" title="Software Carpentry">
+          <img alt="Software Carpentry banner" src="img/software-carpentry-banner.png" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <a href="index.html"><h1 class="title">Software Testing</h1></a>
+          <h2 class="subtitle">Introducing Nose</h2>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
+<ul>
+<li>Introduce the Python Nose unit test framework</li>
+</ul>
+</div>
+</section>
+<h2 id="nose-a-python-testing-framework">Nose: A Python Testing Framework</h2>
+<p>The testing framework we’ll discuss today is called nose. However, there are several other testing frameworks available in most languages. For Python, other alternative testing framworks include pytest, unittest, doctest.</p>
+<h2 id="where-do-nose-tests-live">Where do nose tests live?</h2>
+<p>Nose tests are files that begin with <code>Test-</code>, <code>Test_</code>, <code>test-</code>, or <code>test_</code>. Specifically, these satisfy the testMatch regular expression <code>[Tt]est[-_]</code>. (You can also teach nose to find tests by declaring them in the unittest.TestCase subclasses that you create in your code. You can also create test functions which are not unittest.TestCase subclasses if they are named with the configured testMatch regular expression.)</p>
+<h2 id="nose-test-syntax">Nose Test Syntax</h2>
+<p>To write a nose test, we make assertions.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">assert</span> should_be_true()
+<span class="kw">assert</span> not should_not_be_true()</code></pre>
+<p>Additionally, nose itself defines number of assert functions which can be used to test more specific aspects of the code base.</p>
+<p><sub>~</sub>{python} from nose.tools import *</p>
+<p>assert_equal(a, b) assert_almost_equal(a, b) assert_true(a) assert_false(a) assert_raises(exception, func, *args, **kwargs) assert_is_instance(a, b) # and many more! <sub>~</sub></p>
+<p>Moreover, numpy offers similar testing functions for arrays:</p>
+<p><sub>~</sub>{python} from numpy.testing import *</p>
+<p>assert_array_equal(a, b) assert_array_almost_equal(a, b) # etc. <sub>~</sub></p>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pencil"></span>Exercise: Writing tests</h2>
+</div>
+<div class="panel-body">
+<p>There are a few tests for the mean() function that we listed in this lesson. What are some tests that should fail? Add at least three test cases to this set. Edit the <code>test_mean.py</code> file which tests the mean() function in <code>mean.py</code>.</p>
+<p><em>Hint:</em> Think about what form your input could take and what you should do to handle it. Also, think about the type of the elements in the list. What should be done if you pass a list of integers? What if you pass a list of strings?</p>
+<p><strong>To run the tests</strong>:</p>
+<p>nosetests -v test_mean.py</p>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pencil"></span>Pre- and post-conditions</h2>
+</div>
+<div class="panel-body">
+<p>Suppose you are writing a function called <code>average</code> that calculates the average of the numbers in a list. What pre-conditions and post-conditions would you write for it? Compare your answer to your neighbor’s: can you think of a function that will pass your tests but not hers or vice versa?</p>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pencil"></span>Testing assertions</h2>
+</div>
+<div class="panel-body">
+<p>Given a sequence of values, the function <code>running</code> returns a list containing the running totals at each index.</p>
+<pre class="sourceCode python"><code class="sourceCode python">running([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</code></pre>
+<pre class="output"><code>[1, 3, 6, 10]</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python">running(<span class="st">&#39;abc&#39;</span>)</code></pre>
+<pre class="output"><code>[&#39;a&#39;, &#39;ab&#39;, &#39;abc&#39;]</code></pre>
+<p>Explain in words what the assertions in this function check, and for each one, give an example of input that will make that assertion fail.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> running(values):
+    <span class="kw">assert</span> <span class="dt">len</span>(values) &gt; <span class="dv">0</span>
+    result = [values[<span class="dv">0</span>]]
+    <span class="kw">for</span> v in values[<span class="dv">1</span>:]:
+        <span class="kw">assert</span> result[-<span class="dv">1</span>] &gt;= <span class="dv">0</span>
+        result.append(result[-<span class="dv">1</span>] + v)
+        <span class="kw">assert</span> result[-<span class="dv">1</span>] &gt;= result[<span class="dv">0</span>]
+    <span class="kw">return</span> result</code></pre>
+</div>
+</section>
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="http://software-carpentry.org">Software Carpentry</a>
+        <a class="label swc-blue-bg" href="https://github.com/swcarpentry/lesson-template">Source</a>
+        <a class="label swc-blue-bg" href="mailto:admin@software-carpentry.org">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+  </body>
+</html>
